@@ -1,0 +1,1 @@
+Currently using Obsidian to write and visualize these.
