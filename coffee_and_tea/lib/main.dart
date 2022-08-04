@@ -1,14 +1,10 @@
 import 'package:coffee_and_tea/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:yeet/yeet.dart';
-
-import 'Views/FastInputScreen.dart';
-import 'Views/ManagingScreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
-  // runApp(const FastInputScreen());
-  // runApp(const ManagingScreen());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final yeet = getMyYeet();
-    return MaterialApp.router(
+    return  MaterialApp.router(
       routeInformationParser: YeetInformationParser(),
       routerDelegate: YeeterDelegate(yeet: yeet),
       title: 'Flutter Demo',
@@ -28,22 +24,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
+class MyHomePage extends ConsumerWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final yeet = getMyYeet();
+
+    int current = 0;
+    final routes = ['/', '/managing', '/fast_input'];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Tester hub"),
       ),
       body: Center(
         child: Column(
@@ -52,22 +43,25 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You are in the tester screen!!',
             ),
-            ElevatedButton(
-              child: Text("Go to FastInputScreen"),
-              onPressed: () {
-                /// nav >> fast_input
-                context.yeetOnTop('/fast_input');
-              },
-            ),
-            ElevatedButton(
-              child: Text("Go to ManagingScreen"),
-              onPressed: () {
-                // nav >> managing
-                context.yeetOnTop('/managing');
-              },
-            ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home), label: "Hub"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.manage_search), label: "Managing"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_shopping_cart), label: "Fast Input"),
+        ],
+        currentIndex: current,
+        onTap: (int newRoute) {
+          context.yeetOnTop(routes[newRoute]);
+        },
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.white,
+        backgroundColor: Colors.blue,
       ),
     );
   }
