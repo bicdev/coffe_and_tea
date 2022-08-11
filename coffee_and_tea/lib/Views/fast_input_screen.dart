@@ -4,8 +4,8 @@ import 'package:riverpod/riverpod.dart';
 import 'package:yeet/yeet.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
+import '../Model/expense.dart';
 import '../Pods/expenses_pod.dart';
-import '../expense.dart';
 import '../navigation.dart';
 
 // class FastInputScreen extends StatelessWidget {

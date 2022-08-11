@@ -4,7 +4,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:yeet/yeet.dart';
 
 import '../Pods/expenses_pod.dart';
-import '../expense.dart';
+import '../Model/expense.dart';
 import '../navigation.dart';
 import 'fast_input_screen.dart';
 
