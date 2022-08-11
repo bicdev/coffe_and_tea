@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../expense.dart';
+import '../Model/expense.dart';
 
 class ExpensesChangeNotifier extends ChangeNotifier{
   final List<Expense> _expenses = [];
